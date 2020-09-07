@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class MainScreenViewController: UIViewController {
     
@@ -19,22 +20,52 @@ class MainScreenViewController: UIViewController {
     let tableView:UITableView = {
         let table = UITableView()
         table.separatorStyle = .none
+        table.translatesAutoresizingMaskIntoConstraints = false
         return table
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        [searchBar, tableView].forEach{view.addSubview($0)}
+        tableView.delegate = self
+        tableView.dataSource = self
         tableView.register(CityWeatherForecastTableViewCell.self, forCellReuseIdentifier: "CityCell")
+        [searchBar, tableView].forEach{view.addSubview($0)}
+//        getData()
         setConstraints()
     }
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        getData()
+    }
+    
+    func getData(){
+        Logger.log("")
+        let headers:HTTPHeaders = [
+            "X-Yandex-API-Key":"d1802bcc-f551-4c0f-8417-541516e6e072"
+        ]
+        
+        let parametrs: [String: Any] = [
+            "lat=":exampleCities[0].lat,
+            "lon=":exampleCities[0].lon,
+            "lang":"ru_RU",
+            "extra": true
+        ]
+        
+        print(AF.request(link, parameters: parametrs, headers: headers))
+    }
+    
     func setConstraints(){
+        
         searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         searchBar.heightAnchor.constraint(equalToConstant: 45).isActive = true
+        
+        tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor).isActive = true
+        tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
     }
     
     
@@ -50,7 +81,6 @@ extension MainScreenViewController:UITableViewDataSource{
             Logger.log("Error while initializing tableViewCell")
             return UITableViewCell()
         }
-        Logger.log("Cell has been succesfully initialized")
         
         cell.cityNameLabel.text = exampleCities[indexPath.row].name
         cell.cityTemperatureLabel.text = String (exampleCities[indexPath.row].temp)
@@ -66,6 +96,6 @@ extension MainScreenViewController:UITableViewDataSource{
 
 extension MainScreenViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
+        return 120
     }
 }

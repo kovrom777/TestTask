@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import Alamofire
 /*                                    Названия переменных и для чего они нужны
  * lat - долгота
  * lon - широта
@@ -33,8 +33,10 @@ struct CityWeatherForecast {
     let daytime: String
 }
 
+
+
 let exampleCities: [CityWeatherForecast] = [
-    CityWeatherForecast(name: "Москва", lat: 110.1, lon: 110.1, temp: 20, feel_like: 20, condition: "Ясно", pressure_mm: 770, humidity: 20, daytime: "d"),
+    CityWeatherForecast(name: "Москва", lat: 110.11111, lon: 110.122222, temp: 20, feel_like: 20, condition: "Ясно", pressure_mm: 770, humidity: 20, daytime: "d"),
     CityWeatherForecast(name: "Москва_1", lat: 110.1, lon: 110.1, temp: 20, feel_like: 20, condition: "Ясно", pressure_mm: 770, humidity: 20, daytime: "d"),
     CityWeatherForecast(name: "Москва_2", lat: 110.1, lon: 110.1, temp: 20, feel_like: 20, condition: "Ясно", pressure_mm: 770, humidity: 20, daytime: "d"),
     CityWeatherForecast(name: "Москва_3", lat: 110.1, lon: 110.1, temp: 20, feel_like: 20, condition: "Ясно", pressure_mm: 770, humidity: 20, daytime: "d"),

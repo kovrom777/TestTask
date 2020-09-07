@@ -8,5 +8,6 @@
 
 import Foundation
 
-let link = "https://api.weather.yandex.ru/v2/informers?lat="
-let YANDEX_KEY = "X-Yandex-API-Key: d1802bcc-f551-4c0f-8417-541516e6e072"
+let link = "https://api.weather.yandex.ru/v2/informers?"
+let YANDEX_KEY_KEY = "X-Yandex-API-Key"
+let YANDEX_KEY_VAL = "d1802bcc-f551-4c0f-8417-541516e6e072"
