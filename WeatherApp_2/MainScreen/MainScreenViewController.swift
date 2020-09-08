@@ -31,7 +31,6 @@ class MainScreenViewController: UIViewController {
         tableView.dataSource = self
         tableView.register(CityWeatherForecastTableViewCell.self, forCellReuseIdentifier: "CityCell")
         [searchBar, tableView].forEach{view.addSubview($0)}
-//        getData()
         setConstraints()
     }
     
@@ -42,17 +41,17 @@ class MainScreenViewController: UIViewController {
     func getData(){
         Logger.log("")
         let headers:HTTPHeaders = [
-            "X-Yandex-API-Key":"d1802bcc-f551-4c0f-8417-541516e6e072"
+        .init(name: YANDEX_HEADER_KEY, value: YANDEX_HEADER_VAL)
         ]
         
-        let parametrs: [String: Any] = [
-            "lat=":exampleCities[0].lat,
-            "lon=":exampleCities[0].lon,
-            "lang":"ru_RU",
-            "extra": true
+        let parametrs: [String: String] = [
+            "lat":"11.22222",
+            "lon":"11.11111",
+            "lang":"ru_RU"
         ]
-        
-        print(AF.request(link, parameters: parametrs, headers: headers))
+        AF.request(LINK, parameters: parametrs, headers: headers).responseJSON{ response in
+            print(response)
+        }
     }
     
     func setConstraints(){
